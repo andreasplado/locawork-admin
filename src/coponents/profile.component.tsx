@@ -2,7 +2,7 @@ import { Component } from "react";
 import React from "react";
 import AuthService from "../services/AuthService";
 import IUser from "../types/user.type";
-import { Redirect } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 type Props = {};
 
@@ -32,7 +32,7 @@ export default class Profile extends Component<Props, State> {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
+      redirect(this.state.redirect);
     }
 
     const { currentUser } = this.state;

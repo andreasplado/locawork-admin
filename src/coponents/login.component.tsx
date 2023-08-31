@@ -1,15 +1,18 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import React from "react";
 import { Component } from "react";
-import { RouteComponentProps } from "react-router-dom";
 import * as Yup from "yup";
 import AuthService from "../services/AuthService";
+import { useNavigate } from "react-router-dom";
+
+let navigate = useNavigate();
 
 interface RouterProps {
     history: string;
   }
+ 
   
-  type Props = RouteComponentProps<RouterProps>;
+  type Props = {};
   
   type State = {
     username: string,
@@ -50,7 +53,7 @@ interface RouterProps {
       
       AuthService.login(username, password).then(
         () => {
-          this.props.history.push("/profile");
+          navigate("/profile");
           window.location.reload();
         },
         error => {
