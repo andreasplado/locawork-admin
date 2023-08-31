@@ -13,7 +13,6 @@ import BoardUser from "./coponents/home/board-user.component";
 import Home from "./coponents/home/home.component";
 import Login from "./coponents/login.component";
 import Profile from "./coponents/profile.component";
-import Register from "./coponents/register.component";
 import AuthService from "./services/AuthService";
 
 type Props = {};
@@ -133,7 +132,6 @@ class App extends Component<Props, State> {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
