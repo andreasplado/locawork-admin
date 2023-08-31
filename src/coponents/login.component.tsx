@@ -5,8 +5,6 @@ import * as Yup from "yup";
 import AuthService from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 
-let navigate = useNavigate();
-
 interface RouterProps {
     history: string;
   }
@@ -53,6 +51,7 @@ interface RouterProps {
       
       AuthService.login(username, password).then(
         () => {
+          let navigate = useNavigate();
           navigate("/profile");
           window.location.reload();
         },
