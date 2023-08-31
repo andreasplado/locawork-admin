@@ -47,7 +47,7 @@ interface RouterProps {
         loading: true
       });
   
-  
+      
       AuthService.login(username, password).then(
         () => {
           this.props.history.push("/profile");
