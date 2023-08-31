@@ -1,10 +1,11 @@
 import axios from "axios";
+import { AppConstants } from "../constants/AppConstants";
 
 
 class AuthService {
     login(email: string, password: string) {
       return axios
-        .post(API_URL + "/auth/authenticate", {
+        .post(AppConstants.API_URL + "/auth/authenticate", {
           username: email,
           password
         })
@@ -22,7 +23,7 @@ class AuthService {
     }
   
     register(email: string, contact: string, password: string, fullName : string) {
-      return axios.post(API_URL + "/users/signup", {
+      return axios.post(AppConstants.API_URL + "/users/signup", {
         email,
         contact,
         password,

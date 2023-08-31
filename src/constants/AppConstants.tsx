@@ -1,1 +1,3 @@
-const API_URL = "https://locawork-web-api.herokuapp.com";
+export class AppConstants {
+    public static get API_URL():string { return "https://locawork-web-api.herokuapp.com"; };
+}

@@ -1,21 +1,22 @@
 import axios from 'axios';
 import authHeader from './AuthHeader';
+import { AppConstants } from '../constants/AppConstants';
 
 class UserService {
   getPublicContent() {
-    return axios.get(API_URL + 'all');
+    return axios.get(AppConstants.API_URL + 'all');
   }
 
   getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
+    return axios.get(AppConstants.API_URL + 'user', { headers: authHeader() });
   }
 
   getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
+    return axios.get(AppConstants.API_URL + 'mod', { headers: authHeader() });
   }
 
   getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
+    return axios.get(AppConstants.API_URL + 'admin', { headers: authHeader() });
   }
 }
 
