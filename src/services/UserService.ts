@@ -4,7 +4,7 @@ import { AppConstants } from '../constants/AppConstants';
 
 class UserService {
   getPublicContent() {
-    return axios.get(AppConstants.API_URL + 'all');
+    return axios.get(AppConstants.API_URL + '');
   }
 
   getUserBoard() {
