@@ -1,18 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { Component } from 'react';
+import { Component } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, Switch, Route } from 'react-router-dom';
-import BoardUser from './coponents/home/board-user.component';
-import Home from './coponents/home/home.component';
-import Login from './coponents/login.component';
-import Profile from './coponents/profile.component';
-import Register from './coponents/register.component';
-import AuthService from './services/AuthService';
-import BoardAdmin from './coponents/home/board-admin.component';
-import BoardModerator from './coponents/home/board-moderator.component';
-import EventBus from './common/EventBus';
+import "./App.css";
 import IUser from './types/user.type';
+
+
+import EventBus from "./common/EventBus";
+import React from "react";
+import BoardAdmin from "./coponents/home/board-admin.component";
+import BoardModerator from "./coponents/home/board-moderator.component";
+import BoardUser from "./coponents/home/board-user.component";
+import Home from "./coponents/home/home.component";
+import Login from "./coponents/login.component";
+import Profile from "./coponents/profile.component";
+import Register from "./coponents/register.component";
+import AuthService from "./services/AuthService";
 
 type Props = {};
 
@@ -133,15 +135,16 @@ class App extends Component<Props, State> {
         </nav>
 
         <div className="container mt-3">
-          <Switch>
-            <Route exact path={["/", "/home"]} component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/user" element={<BoardUser />} />
+            <Route path="/mod" element={<BoardModerator />} />
+            <Route path="/admin" element={<BoardAdmin />} />
+          </Routes>
         </div>
 
         { /*<AuthVerify logOut={this.logOut}/> */}
