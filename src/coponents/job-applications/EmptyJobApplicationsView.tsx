@@ -4,6 +4,7 @@ import UserService from "../../services/UserService";
 import React from "react";
 import UserEntity from "../../types/userEntity.type";
 import JobEntity from "../../types/jobEntity.type";
+import ic_no_data from "../../assets/ic_no_data.svg";
 
 
 type Props = {};
@@ -24,6 +25,7 @@ export default class EmptyJobApplicationsView extends Component<Props, State> {
     return<>
       <div>
         <h3>Sorry admin!</h3>
+        <img src={ic_no_data} />
         <p>We didnt find any applications for job</p>
       </div>
     </>
