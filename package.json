@@ -4,9 +4,9 @@
   "private": true,
   "homepage": "https://andreasplado.github.io",
   "engines": {
-    "node": "14.18.3",
+    "node": "16.15.0",
     "npm": "6.14.15"
-  },
+      },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
