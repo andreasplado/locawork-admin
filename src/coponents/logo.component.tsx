@@ -34,7 +34,9 @@ export default class LogoComponent extends Component<Props, State> {
       <>
       <div className="d-flex justify-content-center">
         <img src={logo} /><br />
-        <p>{this.props.slogan}</p>
+      </div>
+      <div className="d-flex justify-content-center">
+        <small>{this.props.slogan}</small>
       </div>
       </>
     );

@@ -14,6 +14,7 @@ import Profile from "./coponents/profile.component";
 import AuthService from "./services/AuthService";
 import BoardUsers from "./coponents/users/board-users.component";
 import JobApplications from "./coponents/job-applications/board-job-applications.component";
+import logo from './assets/logo.svg'; 
 
 type Props = {};
 
@@ -69,7 +70,8 @@ class App extends Component<Props, State> {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            Locawork admin panel
+          <img src={logo} />&nbsp; &nbsp; &nbsp; 
+          <small>Locawork admin panel</small>
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
