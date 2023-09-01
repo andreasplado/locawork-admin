@@ -9,7 +9,7 @@ type State = {
   content: string;
 }
 
-export default class BoardAdmin extends Component<Props, State> {
+export default class BoardModerator extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -19,7 +19,7 @@ export default class BoardAdmin extends Component<Props, State> {
   }
 
   componentDidMount() {
-    UserService.getUserBoard().then(
+    UserService.getUsersBoard().then(
       response => {
         this.setState({
           content: response.data

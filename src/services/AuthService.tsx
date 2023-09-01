@@ -10,8 +10,9 @@ class AuthService {
           password: password
         })
         .then(response => {
-          if (response.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(response.data));
+          if (response.data.token) {
+            localStorage.setItem("user", JSON.stringify(response.data.userEntity));
+            localStorage.setItem("token", response.data.token);
           }
   
           return response.data;
@@ -20,6 +21,7 @@ class AuthService {
   
     logout() {
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
     }
   
     register(email: string, contact: string, password: string, fullName : string) {
@@ -34,6 +36,13 @@ class AuthService {
     getCurrentUser() {
       const userStr = localStorage.getItem("user");
       if (userStr) return JSON.parse(userStr);
+  
+      return null;
+    }
+
+    getToken() {
+      const token = localStorage.getItem("token");
+      if (token) return token;
   
       return null;
     }

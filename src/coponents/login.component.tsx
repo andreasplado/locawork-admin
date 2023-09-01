@@ -5,9 +5,6 @@ import * as Yup from "yup";
 import AuthService from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 
-interface RouterProps {
-    history: string;
-  }
  
   
   type Props = {};
@@ -19,12 +16,12 @@ interface RouterProps {
     message: string
   };
 
-
+  
   export default class Login extends Component<Props, State> {
     constructor(props: Props) {
       super(props);
       this.handleLogin = this.handleLogin.bind(this);
-  
+
       this.state = {
         username: "",
         password: "",
@@ -32,6 +29,7 @@ interface RouterProps {
         message: ""
       };
     }
+
   
     validationSchema() {
       return Yup.object().shape({
@@ -51,9 +49,7 @@ interface RouterProps {
       
       AuthService.login(username, password).then(
         () => {
-          let navigate = useNavigate();
-          navigate("/profile");
-          window.location.reload();
+          window.location.replace("profile");
         },
         error => {
           const resMessage =
@@ -73,7 +69,7 @@ interface RouterProps {
   
     render() {
       const { loading, message } = this.state;
-  
+      
       const initialValues = {
         username: "",
         password: "",

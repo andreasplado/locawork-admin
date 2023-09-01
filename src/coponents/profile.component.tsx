@@ -3,13 +3,15 @@ import React from "react";
 import AuthService from "../services/AuthService";
 import IUser from "../types/user.type";
 import { redirect } from "react-router-dom";
+import UserEntity from "../types/userEntity.type";
 
 type Props = {};
 
 type State = {
   redirect: string | null,
   userReady: boolean,
-  currentUser: IUser & { accessToken: string }
+  token: string | null,
+  userEntity: UserEntity | null
 }
 export default class Profile extends Component<Props, State> {
 
@@ -19,52 +21,58 @@ export default class Profile extends Component<Props, State> {
     this.state = {
       redirect: null,
       userReady: false,
-      currentUser: { accessToken: "" }
+      token: null,
+      userEntity: null
     };
   }
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
-
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
+    this.changeStateFunction();
   }
+
+  changeStateFunction = () => {
+    const currentUser = AuthService.getCurrentUser();
+    const token = AuthService.getToken();
+    this.setState({ userReady: true,  token : token, userEntity: currentUser.userEntity}, function () {
+  });
+}
 
   render() {
     if (this.state.redirect) {
+      console.log("Redirectis");
       redirect(this.state.redirect);
+    }else{
+      console.log("Ei redirectingud");
     }
 
-    const { currentUser } = this.state;
-
+    const currentUser = AuthService.getCurrentUser();
+    const token = AuthService.getToken();
     return (
       <div className="container">
         {(this.state.userReady) ?
           <div>
             <header className="jumbotron">
               <h3>
-                <strong>{currentUser.username}</strong> Profile
+                <strong>{this.state.userEntity?.email}</strong> Profile
               </h3>
             </header>
             <p>
               <strong>Token:</strong>{" "}
-              {currentUser.accessToken.substring(0, 20)} ...{" "}
-              {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+              {token}
             </p>
             <p>
               <strong>Id:</strong>{" "}
-              {currentUser.id}
+              {currentUser?.id}
             </p>
             <p>
               <strong>Email:</strong>{" "}
-              {currentUser.email}
+              {currentUser?.email}
             </p>
             <strong>Authorities:</strong>
             <ul>
-              {currentUser.roles &&
-                currentUser.roles.map((role: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined, index: React.Key | null | undefined) => <li key={index}>{role}</li>)}
+              {currentUser.role}
             </ul>
-          </div> : null}
+          </div> : <></>}
       </div>
     );
   }

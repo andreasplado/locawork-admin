@@ -1,12 +1,22 @@
 import React from "react";
 import { Component } from "react";
 import UserService from "../../services/UserService";
+import { number } from "yup";
 
+interface Comment{
+  id : number,
+  jobId: number,
+  userId: number,
+  comment: string,
+  createdAt: string,
+  updatedAt: string,
+  deletedAt: string
+}
 
 type Props = {};
 
 type State = {
-  content: string;
+  comment: Comment[]
 }
 
 export default class Home extends Component<Props, State> {
@@ -14,20 +24,20 @@ export default class Home extends Component<Props, State> {
     super(props);
 
     this.state = {
-      content: ""
+      comment:[]
     };
   }
 
   componentDidMount() {
-    UserService.getPublicContent().then(
+    UserService.getAllComments().then(
       response => {
         this.setState({
-          content: response.data
+          comment: response.data
         });
       },
       error => {
         this.setState({
-          content:
+          comment:
             (error.response && error.response.data) ||
             error.message ||
             error.toString()
@@ -37,10 +47,17 @@ export default class Home extends Component<Props, State> {
   }
 
   render() {
+    const listItems = this.state.comment.map((d) =>
+    <><p key={d.id}>{d.comment}</p>
+    <p>{d.userId}</p>
+    <p>Created at: {d.createdAt}</p></>
+    );
     return (
       <div className="container">
+        <h1>User comments</h1>
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          
+          <h6>{listItems}</h6>
         </header>
       </div>
     );

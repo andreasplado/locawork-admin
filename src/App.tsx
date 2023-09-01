@@ -7,9 +7,8 @@ import IUser from './types/user.type';
 
 import EventBus from "./common/EventBus";
 import React from "react";
-import BoardAdmin from "./coponents/home/board-admin.component";
-import BoardModerator from "./coponents/home/board-moderator.component";
-import BoardUser from "./coponents/home/board-user.component";
+import BoardUsers from "./coponents/home/board-users.component";
+import BoardJobs from "./coponents/home/board-jobs.component";
 import Home from "./coponents/home/home.component";
 import Login from "./coponents/login.component";
 import Profile from "./coponents/profile.component";
@@ -41,8 +40,8 @@ class App extends Component<Props, State> {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showModeratorBoard: user.role.includes("ROLE_MODERATOR"),
+        showAdminBoard: user.role.includes("ROLE_ADMIN"),
       });
     }
 
@@ -87,19 +86,17 @@ class App extends Component<Props, State> {
             )}
 
             {showAdminBoard && (
-              <li className="nav-item">
+              <><li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
-                  Admin Board
+                  Locawork users
+                  </Link>
+                </li>
+                <li className="nav-item">
+                <Link to={"/jobs"} className="nav-link">
+                  Jobs
                 </Link>
               </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
+            </>
             )}
           </div>
 
@@ -107,12 +104,12 @@ class App extends Component<Props, State> {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
+                  {currentUser.email}
                 </Link>
               </li>
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  Logout
                 </a>
               </li>
             </div>
@@ -133,9 +130,8 @@ class App extends Component<Props, State> {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
-            <Route path="/admin" element={<BoardAdmin />} />
+            <Route path="/mod" element={<BoardJobs />} />
+            <Route path="/admin" element={<BoardUsers />} />
           </Routes>
         </div>
 

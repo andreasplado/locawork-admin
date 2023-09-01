@@ -3,12 +3,12 @@ import authHeader from './AuthHeader';
 import { AppConstants } from '../constants/AppConstants';
 
 class UserService {
-  getPublicContent() {
-    return axios.get(AppConstants.API_URL + '');
+  getAllComments() {
+    return axios.get(AppConstants.API_URL + '/comments');
   }
 
-  getUserBoard() {
-    return axios.get(AppConstants.API_URL + 'user', { headers: authHeader() });
+  getUsersBoard() {
+    return axios.get(AppConstants.API_URL + '/users', { headers: authHeader() });
   }
 
   getModeratorBoard() {
