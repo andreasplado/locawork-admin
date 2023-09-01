@@ -13,7 +13,7 @@ import Login from "./coponents/login.component";
 import Profile from "./coponents/profile.component";
 import AuthService from "./services/AuthService";
 import BoardUsers from "./coponents/users/board-users.component";
-import JobApplications from "./coponents/job-appications/board-job-applications.component";
+import JobApplications from "./coponents/job-applications/board-job-applications.component";
 
 type Props = {};
 

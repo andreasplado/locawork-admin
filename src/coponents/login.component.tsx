@@ -4,6 +4,7 @@ import { Component } from "react";
 import * as Yup from "yup";
 import AuthService from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
+import LogoComponent from "./logo.component";
 
  
   
@@ -78,6 +79,7 @@ import { useNavigate } from "react-router-dom";
       return (
         <div className="col-md-12">
           <div className="card card-container">
+            <LogoComponent slogan="Click locate and appy"/>
   
             <Formik
               initialValues={initialValues}
