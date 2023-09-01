@@ -7,12 +7,12 @@ import IUser from './types/user.type';
 
 import EventBus from "./common/EventBus";
 import React from "react";
-import BoardUsers from "./coponents/home/board-users.component";
-import BoardJobs from "./coponents/home/board-jobs.component";
+import BoardJobs from "./coponents/jobs/board-jobs.component";
 import Home from "./coponents/home/home.component";
 import Login from "./coponents/login.component";
 import Profile from "./coponents/profile.component";
 import AuthService from "./services/AuthService";
+import BoardUsers from "./coponents/users/board-users.component";
 
 type Props = {};
 
@@ -87,7 +87,7 @@ class App extends Component<Props, State> {
 
             {showAdminBoard && (
               <><li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
+                <Link to={"/users"} className="nav-link">
                   Locawork users
                   </Link>
                 </li>
@@ -130,8 +130,8 @@ class App extends Component<Props, State> {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/mod" element={<BoardJobs />} />
-            <Route path="/admin" element={<BoardUsers />} />
+            <Route path="/jobs" element={<BoardJobs />} />
+            <Route path="/users" element={<BoardUsers />} />
           </Routes>
         </div>
 

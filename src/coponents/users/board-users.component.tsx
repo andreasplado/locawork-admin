@@ -1,20 +1,26 @@
 import { Component } from "react";
 import UserService from "../../services/UserService";
 import React from "react";
+import UserEntity from "../../types/userEntity.type";
+import UsersList from "./UsersList";
+import EmptyUsersView from "./EmptyUsersView";
+import AuthService from "../../services/AuthService";
 
 
 type Props = {};
 
 type State = {
-  content: string;
+  content: UserEntity[] | [];
+  user?: UserEntity;
 }
 
-export default class BoardModerator extends Component<Props, State> {
+export default class BoardUsers extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      content: ""
+      content: [],
+      user: new Object()
     };
   }
 
@@ -39,11 +45,19 @@ export default class BoardModerator extends Component<Props, State> {
   }
 
   render() {
+    let view = null;
+    let email = this.state.user?.email;
+    var filtered = [...this.state.content].filter(function(el) { return el.email != email; });
+    
+    if (filtered.length > 0) {
+      view = <UsersList listItems={filtered} />;
+    } else {
+      view = <EmptyUsersView />;
+    }
+    
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header>
+        {view}
       </div>
     );
   }

@@ -1,26 +1,29 @@
 import { Component } from "react";
 import UserService from "../../services/UserService";
 import React from "react";
-import UserEntity from "../../types/userEntity.type";
+import JobsService from "../../services/JobsService";
+import JobEntity from "../../types/jobEntity.type";
+import JobList from "./JobsList";
+import EmptyPostedJobsView from "./EmptyPostedJobsView";
 
 
 type Props = {};
 
 type State = {
-  content: UserEntity[] | null;
+  content: JobEntity[] | [];
 }
 
-export default class BoardUsers extends Component<Props, State> {
+export default class BoardJobs extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      content: null
+      content: []
     };
   }
 
   componentDidMount() {
-    UserService.getUsersBoard().then(
+    JobsService.getJobsBoard().then(
       response => {
         this.setState({
           content: response.data
@@ -40,26 +43,17 @@ export default class BoardUsers extends Component<Props, State> {
   }
 
   render() {
-    const listItems = this.state.content?.map((d) =>
-      <>
-      <td key={d.id}>{d.email}</td>
-      <td>{d.fullname}</td>
-      <td>{d.contact}</td>
-      <td>{d.enabled}</td>
-      <td>{d.createdAt}</td></>
-    );
+    let view = null;
+    
+    if (this.state.content.length > 0) {
+      view = <JobList listItems={this.state.content} />;
+    } else {
+      view = <EmptyPostedJobsView />;
+    }
+    
     return (
       <div className="container">
-        <table>
-            <tr>
-              <th>Email</th>
-              <th>Fullname</th>
-              <th>Contact</th>
-              <th>Enabled</th>
-              <th>Created</th>
-            </tr>
-            <tr>{listItems}</tr>
-          </table>
+        {view}
       </div>
     );
   }
