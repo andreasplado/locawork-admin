@@ -6,15 +6,22 @@
   height: 40vmin;
   pointer-events: none;
 }
+.jumbotron{
+  background-color: #2e2e2e!important;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
+body{
+  background-color: #1595eb;
+  color: white;
+}
 
 .App-header {
-  background-color: #282c34;
+  background-color: #2e2e2e;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +42,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #2e2e2e;
+}
+
+.card{
+  background-color: #1595eb;
+  padding: 20px;
+}
+
+button{
+  background-color: #2e2e2e!important;
 }

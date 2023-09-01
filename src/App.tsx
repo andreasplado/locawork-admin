@@ -13,6 +13,7 @@ import Login from "./coponents/login.component";
 import Profile from "./coponents/profile.component";
 import AuthService from "./services/AuthService";
 import BoardUsers from "./coponents/users/board-users.component";
+import JobApplications from "./coponents/job-appications/board-job-applications.component";
 
 type Props = {};
 
@@ -86,17 +87,23 @@ class App extends Component<Props, State> {
             )}
 
             {showAdminBoard && (
-              <><li className="nav-item">
-                <Link to={"/users"} className="nav-link">
-                  Locawork users
+              <>
+                <li className="nav-item">
+                  <Link to={"/users"} className="nav-link">
+                    Locawork users
                   </Link>
                 </li>
                 <li className="nav-item">
-                <Link to={"/jobs"} className="nav-link">
-                  Jobs
-                </Link>
-              </li>
-            </>
+                  <Link to={"/jobs"} className="nav-link">
+                    Jobs
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/job-applications"} className="nav-link">
+                    Job applications
+                  </Link>
+                </li>
+              </>
             )}
           </div>
 
@@ -132,6 +139,7 @@ class App extends Component<Props, State> {
             <Route path="/profile" element={<Profile />} />
             <Route path="/jobs" element={<BoardJobs />} />
             <Route path="/users" element={<BoardUsers />} />
+            <Route path="/job-applications" element={<JobApplications />} />
           </Routes>
         </div>
 
