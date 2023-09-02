@@ -5,8 +5,7 @@
 import { Component, useState } from "react";
 import React from "react";
 import UserEntity from "../../../types/userEntity.type";
-import { Formik, Field, ErrorMessage } from "formik";
-import { Form } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import UserService from "../../../services/UserService";
 import * as Yup from "yup";
 
