@@ -17,7 +17,7 @@ class UserService {
   }
 
   updateUserBoard(userId: number, userEntity: UserEntity) {
-    return axios.post(AppConstants.API_URL + '/users', {userEntity}, { headers: authHeader()} );
+    return axios.put(AppConstants.API_URL + '/users/' + userId, { data: userEntity, headers: authHeader()} );
   }
 
 

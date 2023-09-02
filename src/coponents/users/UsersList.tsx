@@ -33,7 +33,12 @@ export default class UsersList extends Component<Props> {
           <td>{d.contact}</td>
           <td>{d.enabled}</td>
           <td>{d.createdAt}</td>
-          <td><button onClick={() => window.location.replace("user/" + d.id) }>Edit</button>&nbsp;&nbsp;<button>Delete</button></td>
+          
+          <td>
+            <button onClick={() => window.location.replace("user/" + d.id) } className="btn btn-primary btn-block">Edit</button>
+              <br />
+            <button onClick={() => window.location.replace("user/" + d.id) } className="btn btn-primary btn-block">Delete</button>
+          </td>
         </tr>
       </>
     );

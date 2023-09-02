@@ -7,7 +7,9 @@ import JobApplicationsService from "../../services/JobApplicationsService";
 import JobApplicationsList from "./JobApplicationsList";
 
 
-type Props = {};
+type Props = {
+  userId?: number;
+};
 
 type State = {
   content: JobApplicationEntity[] | [];
@@ -23,34 +25,54 @@ export default class JobApplications extends Component<Props, State> {
   }
 
   componentDidMount() {
-    JobApplicationsService.getJobApplicationsBoard().then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
-      }
-    );
+    if (this.props.userId != null && this.props.userId > 0) {
+      JobApplicationsService.getUserJobApplications(this.props.userId).then(
+        response => {
+          this.setState({
+            content: response.data
+          });
+        },
+        error => {
+          this.setState({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+    } else {
+      JobApplicationsService.getJobApplicationsBoard().then(
+        response => {
+          this.setState({
+            content: response.data
+          });
+        },
+        error => {
+          this.setState({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+    }
   }
 
   render() {
     let view = null;
-    
+
     if (this.state.content.length > 0) {
       view = <JobApplicationsList listItems={this.state.content} />;
     } else {
       view = <EmptyJobApplicationsView />;
     }
-    
+
     return (
       <div className="container">
         {view}

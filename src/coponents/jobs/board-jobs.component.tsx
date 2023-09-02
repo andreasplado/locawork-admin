@@ -7,7 +7,9 @@ import JobList from "./JobsList";
 import EmptyPostedJobsView from "./EmptyPostedJobsView";
 
 
-type Props = {};
+type Props = {
+  userId?: number;
+};
 
 type State = {
   content: JobEntity[] | [];
@@ -23,34 +25,53 @@ export default class BoardJobs extends Component<Props, State> {
   }
 
   componentDidMount() {
-    JobsService.getJobsBoard().then(
-      response => {
-        this.setState({
-          content: response.data
+    if (this.props.userId != null && this.props.userId > 0) {
+      JobsService.getUserJob(this.props.userId).then(
+        response => {
+          this.setState({
+            content: response.data
+          });
+        },
+        error => {
+          this.setState({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
         });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
-      }
-    );
+    } else {
+      JobsService.getJobsBoard().then(
+        response => {
+          this.setState({
+            content: response.data
+          });
+        },
+        error => {
+          this.setState({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+    }
   }
 
   render() {
     let view = null;
-    
+
     if (this.state.content.length > 0) {
       view = <JobList listItems={this.state.content} />;
     } else {
       view = <EmptyPostedJobsView />;
     }
-    
+
     return (
       <div className="container">
         {view}

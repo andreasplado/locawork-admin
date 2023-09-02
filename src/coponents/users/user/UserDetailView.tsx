@@ -8,6 +8,8 @@ import UserEntity from "../../../types/userEntity.type";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import UserService from "../../../services/UserService";
 import * as Yup from "yup";
+import BoardJobs from "../../jobs/board-jobs.component";
+import JobApplications from "../../job-applications/board-job-applications.component";
 
 type Props = {
   content: UserEntity,
@@ -24,18 +26,20 @@ export default class UserDetailsView extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this.updateUser = this.updateUser.bind(this);
 
     this.state = {
       loading: false,
       message: ""
     };
+
   }
 
 
   updateUser(formValue: {
     email: string, fullname: string, contact: string
   }) {
-    const {email, fullname, contact } = formValue;
+    const { email, fullname, contact } = formValue;
 
     this.setState({
       loading: true,
@@ -43,9 +47,12 @@ export default class UserDetailsView extends Component<Props, State> {
     });
 
     const modifiedUserEntity = this.props.content
+
     modifiedUserEntity.email = email;
     modifiedUserEntity.fullname = fullname;
-    modifiedUserEntity.contact = contact
+    modifiedUserEntity.contact = contact;
+
+    console.log(JSON.stringify(modifiedUserEntity));
 
     UserService.updateUserBoard(this.props.userId, modifiedUserEntity).then(
       () => {
@@ -69,8 +76,8 @@ export default class UserDetailsView extends Component<Props, State> {
 
   validationSchema() {
     return Yup.object().shape({
-      username: Yup.string().required("This field is required!"),
-      password: Yup.string().required("This field is required!"),
+      email: Yup.string().required("This field is required!"),
+      fullname: Yup.string().required("This field is required!"),
     });
   }
 
@@ -95,11 +102,12 @@ export default class UserDetailsView extends Component<Props, State> {
         initialValues={initialValues}
         validationSchema={this.validationSchema}
         onSubmit={this.updateUser}
+        enableReinitialize={true}
       >
         <Form>
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            <Field name="email" type="text" className="form-control" value={user.email}/>
+            <Field name="email" type="text" className="form-control" />
             <ErrorMessage
               name="email"
               component="div"
@@ -109,7 +117,7 @@ export default class UserDetailsView extends Component<Props, State> {
 
           <div className="form-group">
             <label htmlFor="fullname">Fullname</label>
-            <Field name="fullname" type="text" className="form-control" value={user.fullname} />
+            <Field name="fullname" type="text" className="form-control" />
             <ErrorMessage
               name="fullname"
               component="div"
@@ -119,7 +127,7 @@ export default class UserDetailsView extends Component<Props, State> {
 
           <div className="form-group">
             <label htmlFor="contact">Contact</label>
-            <Field name="contact" type="text" className="form-control" value={user.contact} />
+            <Field name="contact" type="text" className="form-control" />
             <ErrorMessage
               name="contact"
               component="div"
@@ -146,10 +154,25 @@ export default class UserDetailsView extends Component<Props, State> {
       </Formik>
     </>
 
+    const addedJobs = <>
+      <div>
+        {this.props.content.fullname} added jobs:
+        <BoardJobs userId={this.props.userId} />
+      </div>
+    </>
+
+    const myApplications = <>
+    <div>
+      {this.props.content.fullname} job applications:
+      <JobApplications userId={this.props.userId} />
+    </div>
+    </>
+
     return (
       <div className="container">
         {form}
-        Contact removed: {this.props.content.contact}
+        {addedJobs}
+        {myApplications}
       </div >
     );
   }
