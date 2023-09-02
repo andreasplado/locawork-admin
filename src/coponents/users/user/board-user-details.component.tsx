@@ -24,11 +24,12 @@ export default class BoardUserDetails extends Component<Props, State> {
     this.state = {
       content: new Object(),
       user: new Object(),
-      id: 0
+      id: 1
     };
   }
 
   componentDidMount() {
+    console.log("component mounted");
     UserService.getUserBoard(this.state.id).then(
       response => {
         this.setState({
@@ -50,6 +51,7 @@ export default class BoardUserDetails extends Component<Props, State> {
 
   render() {
     let view = null;
+    console.log("id: " + this.state.content?.id);
     let myEmail = this.state.user?.email;
     let viewableUser = this.state.content;
     if(viewableUser != null){

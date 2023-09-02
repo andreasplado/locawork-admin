@@ -33,17 +33,21 @@ export default class UserDetailsView extends Component<Props, State> {
 
 
   updateUser(formValue: {
-    userId: number, content: UserEntity
+    email: string, fullname: string, contact: string
   }) {
-    const { userId, content } = formValue;
+    const {email, fullname, contact } = formValue;
 
     this.setState({
       loading: true,
       message: ""
     });
 
-    
-    UserService.updateUserBoard(userId, content).then(
+    const modifiedUserEntity = this.props.content
+    modifiedUserEntity.email = email;
+    modifiedUserEntity.fullname = fullname;
+    modifiedUserEntity.contact = contact
+
+    UserService.updateUserBoard(this.props.userId, modifiedUserEntity).then(
       () => {
         window.location.replace("users");
       },
@@ -80,71 +84,72 @@ export default class UserDetailsView extends Component<Props, State> {
     const { loading, message } = this.state;
 
     const initialValues = {
-      userId: userId,
-      content: user,
-      loading : false,
-      message: ""
+      email: user.email!,
+      fullname: user.fullname!,
+      contact: user.contact!,
     };
 
+
     const form = <>
-     <Formik
-              initialValues={initialValues}
-              validationSchema={this.validationSchema}
-              onSubmit={this.updateUser}
-            >
-              <Form>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <Field name="email" type="text" className="form-control" />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="alert alert-danger"
-                  />
-                </div>
-  
-                <div className="form-group">
-                  <label htmlFor="fullname">Fullname</label>
-                  <Field name="fullname" type="text" className="form-control" />
-                  <ErrorMessage
-                    name="fullname"
-                    component="div"
-                    className="alert alert-danger"
-                  />
-                </div>
-  
-                <div className="form-group">
-                  <label htmlFor="contact">Contact</label>
-                  <Field name="contact" type="text" className="form-control" />
-                  <ErrorMessage
-                    name="contact"
-                    component="div"
-                    className="alert alert-danger"
-                  />
-                </div>
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-                    {loading && (
-                      <span className="spinner-border spinner-border-sm"></span>
-                    )}
-                    <span>Login</span>
-                  </button>
-                </div>
-  
-                {message && (
-                  <div className="form-group">
-                    <div className="alert alert-danger" role="alert">
-                      {message}
-                    </div>
-                  </div>
-                )}
-              </Form>
-            </Formik>
-      </>
-  
+      <Formik
+        initialValues={initialValues}
+        validationSchema={this.validationSchema}
+        onSubmit={this.updateUser}
+      >
+        <Form>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <Field name="email" type="text" className="form-control" value={user.email}/>
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="alert alert-danger"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="fullname">Fullname</label>
+            <Field name="fullname" type="text" className="form-control" value={user.fullname} />
+            <ErrorMessage
+              name="fullname"
+              component="div"
+              className="alert alert-danger"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="contact">Contact</label>
+            <Field name="contact" type="text" className="form-control" value={user.contact} />
+            <ErrorMessage
+              name="contact"
+              component="div"
+              className="alert alert-danger"
+            />
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+              {loading && (
+                <span className="spinner-border spinner-border-sm"></span>
+              )}
+              <span>Edit</span>
+            </button>
+          </div>
+
+          {message && (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {message}
+              </div>
+            </div>
+          )}
+        </Form>
+      </Formik>
+    </>
+
     return (
       <div className="container">
         {form}
+        Contact removed: {this.props.content.contact}
       </div >
     );
   }

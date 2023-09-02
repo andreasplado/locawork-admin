@@ -13,7 +13,7 @@ class UserService {
   }
 
   getUserBoard(userId: number) {
-    return axios.get(AppConstants.API_URL + '/users', { headers: authHeader() });
+    return axios.get(AppConstants.API_URL + '/users/get-user?id='+ userId,  { headers: authHeader() });
   }
 
   updateUserBoard(userId: number, userEntity: UserEntity) {
