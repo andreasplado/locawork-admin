@@ -86,7 +86,7 @@ export default class UserDetailsView extends Component<Props, State> {
       message: ""
     };
 
-    const data = <>
+    const form = <>
      <Formik
               initialValues={initialValues}
               validationSchema={this.validationSchema}
@@ -144,17 +144,7 @@ export default class UserDetailsView extends Component<Props, State> {
   
     return (
       <div className="container">
-        <table>
-          <tr>
-            <th>Email</th>
-            <th>Fullname</th>
-            <th>Contact</th>
-            <th>Enabled</th>
-            <th>Created</th>
-            <th>Actions</th>
-          </tr>
-          {data}
-        </table>
+        {form}
       </div >
     );
   }
