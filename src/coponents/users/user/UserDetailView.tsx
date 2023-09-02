@@ -4,7 +4,6 @@
 
 import { Component, useState } from "react";
 import React from "react";
-import { Button } from 'flowbite-react';
 import UserEntity from "../../../types/userEntity.type";
 import { Formik, Field, ErrorMessage } from "formik";
 import { Form } from "react-router-dom";

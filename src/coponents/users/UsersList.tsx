@@ -5,7 +5,6 @@
 import { Component, useState } from "react";
 import React from "react";
 import UserEntity from "../../types/userEntity.type";
-import { Button } from 'flowbite-react';
 
 type Props = {
   listItems: UserEntity[] | [];
@@ -34,7 +33,7 @@ export default class UsersList extends Component<Props> {
           <td>{d.contact}</td>
           <td>{d.enabled}</td>
           <td>{d.createdAt}</td>
-          <td><Button onClick={() => window.location.replace("user/" + d.id) }>Edit</Button>&nbsp;&nbsp;<Button>Delete</Button></td>
+          <td><button onClick={() => window.location.replace("user/" + d.id) }>Edit</button>&nbsp;&nbsp;<button>Delete</button></td>
         </tr>
       </>
     );
