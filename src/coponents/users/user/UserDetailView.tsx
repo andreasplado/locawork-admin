@@ -8,8 +8,8 @@ import UserEntity from "../../../types/userEntity.type";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import UserService from "../../../services/UserService";
 import * as Yup from "yup";
-import BoardJobs from "../../jobs/board-jobs.component";
-import JobApplications from "../../job-applications/board-job-applications.component";
+import JobsView from "../../jobs/ViewJobs";
+import ViewJobApplications from "../../job-applications/ViewJobApplications";
 
 type Props = {
   content: UserEntity,
@@ -157,15 +157,15 @@ export default class UserDetailsView extends Component<Props, State> {
     const addedJobs = <>
       <div>
         {this.props.content.fullname} added jobs:
-        <BoardJobs userId={this.props.userId} />
+        <JobsView userId={this.props.userId} fullName={this.props.content.fullname} />
       </div>
     </>
 
     const myApplications = <>
-    <div>
-      {this.props.content.fullname} job applications:
-      <JobApplications userId={this.props.userId} />
-    </div>
+      <div>
+        {this.props.content.fullname} job applications:
+        <ViewJobApplications userId={this.props.userId} fullName={this.props.content.fullname} />
+      </div>
     </>
 
     return (

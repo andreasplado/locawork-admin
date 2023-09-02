@@ -7,10 +7,12 @@ import JobEntity from "../../types/jobEntity.type";
 import ic_no_data from "../../assets/ic_no_data.svg";
 
 
-type Props = {};
+type Props = {
+  fullName?: string | null
+};
 
 type State = {
-  content: JobEntity[] | null;
+  user: JobEntity[] | null;
 }
 
 export default class EmptyJobApplicationsView extends Component<Props, State> {
@@ -18,14 +20,21 @@ export default class EmptyJobApplicationsView extends Component<Props, State> {
     super(props);
 
     this.state = {
-      content: null
+      user: null
     };
   }
-  render(){
-    return<>
+  render() {
+    var content;
+    console.log(this.props.fullName);
+    if (this.props.fullName != null) {
+      content = <p>We didnt find any applications for {this.props.fullName}</p>
+    } else {
+      content = <><img src={ic_no_data} />
+        <p>We didnt find any applications for job</p></>
+    }
+    return <>
       <div>
-        <img src={ic_no_data} />
-        <p>We didnt find any applications for job</p>
+        {content}
       </div>
     </>
   }

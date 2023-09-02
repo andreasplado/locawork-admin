@@ -13,13 +13,13 @@ type Props = {};
 type State = {
   content: UserEntity | null,
   user?: UserEntity,
-  id: number
+  id?: number | undefined
 }
 
 export default class BoardUserDetails extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    
+
 
     this.state = {
       content: new Object(),
@@ -30,23 +30,25 @@ export default class BoardUserDetails extends Component<Props, State> {
 
   componentDidMount() {
     console.log("component mounted");
-    UserService.getUserBoard(this.state.id).then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
-      }
-    );
+    if (this.state.id != null) {
+      UserService.getUserBoard(this.state.id).then(
+        response => {
+          this.setState({
+            content: response.data
+          });
+        },
+        error => {
+          this.setState({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+    }
   }
 
   render() {
@@ -54,12 +56,12 @@ export default class BoardUserDetails extends Component<Props, State> {
     console.log("id: " + this.state.content?.id);
     let myEmail = this.state.user?.email;
     let viewableUser = this.state.content;
-    if(viewableUser != null){
-      view = <UserDetailsView userId= {viewableUser.id} content={viewableUser}/>;
+    if (viewableUser != null) {
+      view = <UserDetailsView userId={viewableUser.id} content={viewableUser} />;
     } else {
       view = <EmptyUsersView />;
     }
-    
+
     return (
       <div className="container">
         {view}

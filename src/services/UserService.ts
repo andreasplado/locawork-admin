@@ -21,6 +21,10 @@ class UserService {
   }
 
 
+  searchUser(keyword : string) {
+    return axios.get(AppConstants.API_URL + '/users/search?keyword=' + keyword, {headers: authHeader()} );
+  }
+
 
   getModeratorBoard() {
     return axios.get(AppConstants.API_URL + 'mod', { headers: authHeader() });

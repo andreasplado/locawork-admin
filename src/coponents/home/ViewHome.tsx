@@ -19,7 +19,7 @@ type State = {
   comment: Comment[]
 }
 
-export default class Home extends Component<Props, State> {
+export default class ViewHome extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 

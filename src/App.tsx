@@ -7,15 +7,15 @@ import IUser from './types/user.type';
 
 import EventBus from "./common/EventBus";
 import React from "react";
-import BoardJobs from "./coponents/jobs/board-jobs.component";
-import Home from "./coponents/home/home.component";
+import JobsView from "./coponents/jobs/ViewJobs";
+import ViewHome from "./coponents/home/ViewHome";
 import Login from "./coponents/login.component";
 import Profile from "./coponents/profile.component";
 import AuthService from "./services/AuthService";
-import BoardUsers from "./coponents/users/board-users.component";
-import JobApplications from "./coponents/job-applications/board-job-applications.component";
+import UsersView from "./coponents/users/UsersView";
+import ViewJobApplications from "./coponents/job-applications/ViewJobApplications";
 import logo from './assets/logo.svg'; 
-import BoardUserDetails from "./coponents/users/user/board-user-details.component";
+import BoardUserDetails from "./coponents/users/user/BoardUserDetails";
 
 type Props = {};
 
@@ -136,13 +136,13 @@ class App extends Component<Props, State> {
 
         <div className="container mt-3">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<ViewHome />} />
+            <Route path="/home" element={<ViewHome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/jobs" element={<BoardJobs />} />
-            <Route path="/users" element={<BoardUsers />} />
-            <Route path="/job-applications" element={<JobApplications />} />
+            <Route path="/jobs" element={<JobsView />} />
+            <Route path="/users" element={<UsersView />} />
+            <Route path="/job-applications" element={<ViewJobApplications />} />
             <Route path='/user/:id' element={<BoardUserDetails />} />
           </Routes>
         </div>

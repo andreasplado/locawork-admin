@@ -1,21 +1,22 @@
 import { Component } from "react";
-import UserService from "../../services/UserService";
 import React from "react";
-import JobsService from "../../services/JobsService";
-import JobEntity from "../../types/jobEntity.type";
-import JobList from "./JobsList";
-import EmptyPostedJobsView from "./EmptyPostedJobsView";
+import JobList from "./JobApplicationsList";
+import JobApplicationEntity from "../../types/jobApplicationEntity.type";
+import EmptyJobApplicationsView from "./EmptyJobApplicationsView";
+import JobApplicationsService from "../../services/JobApplicationsService";
+import JobApplicationsList from "./JobApplicationsList";
 
 
 type Props = {
   userId?: number;
+  fullName?: string | null;
 };
 
 type State = {
-  content: JobEntity[] | [];
+  content: JobApplicationEntity[] | [];
 }
 
-export default class BoardJobs extends Component<Props, State> {
+export default class ViewJobApplications extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -26,7 +27,7 @@ export default class BoardJobs extends Component<Props, State> {
 
   componentDidMount() {
     if (this.props.userId != null && this.props.userId > 0) {
-      JobsService.getUserJob(this.props.userId).then(
+      JobApplicationsService.getUserJobApplications(this.props.userId).then(
         response => {
           this.setState({
             content: response.data
@@ -41,9 +42,10 @@ export default class BoardJobs extends Component<Props, State> {
               error.message ||
               error.toString()
           });
-        });
+        }
+      );
     } else {
-      JobsService.getJobsBoard().then(
+      JobApplicationsService.getJobApplicationsBoard().then(
         response => {
           this.setState({
             content: response.data
@@ -67,9 +69,9 @@ export default class BoardJobs extends Component<Props, State> {
     let view = null;
 
     if (this.state.content.length > 0) {
-      view = <JobList listItems={this.state.content} />;
+      view = <JobApplicationsList listItems={this.state.content} />;
     } else {
-      view = <EmptyPostedJobsView />;
+      view = <EmptyJobApplicationsView fullName={this.props.fullName} />;
     }
 
     return (
