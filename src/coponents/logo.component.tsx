@@ -1,9 +1,6 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import React from "react";
 import { Component } from "react";
-import * as Yup from "yup";
-import AuthService from "../services/AuthService";
-import { useNavigate } from "react-router-dom";
 import logo from '../assets/logo.svg'; 
 
 

@@ -24,7 +24,6 @@ export default class EmptyJobApplicationsView extends Component<Props, State> {
   render(){
     return<>
       <div>
-        <h3>Sorry admin!</h3>
         <img src={ic_no_data} />
         <p>We didnt find any applications for job</p>
       </div>

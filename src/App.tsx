@@ -15,6 +15,7 @@ import AuthService from "./services/AuthService";
 import BoardUsers from "./coponents/users/board-users.component";
 import JobApplications from "./coponents/job-applications/board-job-applications.component";
 import logo from './assets/logo.svg'; 
+import BoardUserDetails from "./coponents/users/user/board-user-details.component";
 
 type Props = {};
 
@@ -142,6 +143,7 @@ class App extends Component<Props, State> {
             <Route path="/jobs" element={<BoardJobs />} />
             <Route path="/users" element={<BoardUsers />} />
             <Route path="/job-applications" element={<JobApplications />} />
+            <Route path='/user/:id' element={<BoardUserDetails />} />
           </Routes>
         </div>
 

@@ -2,9 +2,8 @@ import { Component } from "react";
 import UserService from "../../services/UserService";
 import React from "react";
 import UserEntity from "../../types/userEntity.type";
-import UsersList from "./UsersList";
 import EmptyUsersView from "./EmptyUsersView";
-import AuthService from "../../services/AuthService";
+import UsersList from "./UsersList";
 
 
 type Props = {};
