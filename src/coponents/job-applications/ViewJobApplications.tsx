@@ -13,7 +13,7 @@ type Props = {
 };
 
 type State = {
-  content: JobApplicationEntity[] | [];
+  jobAppliccationsEntity: JobApplicationEntity[] | [];
 }
 
 export default class ViewJobApplications extends Component<Props, State> {
@@ -21,21 +21,24 @@ export default class ViewJobApplications extends Component<Props, State> {
     super(props);
 
     this.state = {
-      content: []
+      jobAppliccationsEntity: []
     };
   }
 
   componentDidMount() {
-    if (this.props.userId != null && this.props.userId > 0) {
+    this.state = {
+      jobAppliccationsEntity: []
+    };
+    if (this.props.userId != null && this.props.userId > 0 && this.state.jobAppliccationsEntity == null) {
       JobApplicationsService.getUserJobApplications(this.props.userId).then(
         response => {
           this.setState({
-            content: response.data
+            jobAppliccationsEntity: response.data
           });
         },
         error => {
           this.setState({
-            content:
+            jobAppliccationsEntity:
               (error.response &&
                 error.response.data &&
                 error.response.data.message) ||
@@ -48,12 +51,12 @@ export default class ViewJobApplications extends Component<Props, State> {
       JobApplicationsService.getJobApplicationsBoard().then(
         response => {
           this.setState({
-            content: response.data
+            jobAppliccationsEntity: response.data
           });
         },
         error => {
           this.setState({
-            content:
+            jobAppliccationsEntity:
               (error.response &&
                 error.response.data &&
                 error.response.data.message) ||
@@ -68,8 +71,8 @@ export default class ViewJobApplications extends Component<Props, State> {
   render() {
     let view = null;
 
-    if (this.state.content.length > 0) {
-      view = <JobApplicationsList listItems={this.state.content} />;
+    if (this.state.jobAppliccationsEntity.length > 0) {
+      view = <JobApplicationsList listItems={this.state.jobAppliccationsEntity} />;
     } else {
       view = <EmptyJobApplicationsView fullName={this.props.fullName} />;
     }

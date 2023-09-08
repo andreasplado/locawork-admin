@@ -35,7 +35,7 @@ export default class UsersView extends Component<Props, State> {
   }
 
 
-  getAllUsers(){
+  getAllUsers() {
     UserService.getUsersBoard().then(
       response => {
         this.setState({
@@ -56,10 +56,8 @@ export default class UsersView extends Component<Props, State> {
   }
 
   searchUser(searchValue: any) {
-    console.log("Search value:");
-    console.log(searchValue.target.value);
 
-    if(searchValue.target.value.length != 0){
+    if (searchValue.target.value.length != 0) {
       UserService.searchUser(searchValue.target.value).then(
         response => {
           console.log(response);
@@ -74,14 +72,14 @@ export default class UsersView extends Component<Props, State> {
               error.response.data.message) ||
             error.message ||
             error.toString();
-  
+
           this.setState({
             loading: false,
             message: resMessage
           });
         }
       );
-    }else{
+    } else {
       this.getAllUsers();
     }
 
@@ -96,19 +94,8 @@ export default class UsersView extends Component<Props, State> {
   }
 
   render() {
-    let view = null;
-    let email = this.state.user?.email;
-    var filtered = [...this.state.users].filter(function (el) { return el.email != email; });
-
-    if (filtered.length > 0) {
-      view = <UsersList listItems={filtered} />;
-    } else {
-      view = <EmptyUsersView />;
-    }
-
     const initialValues = { searchValue: "" }
     const { searchLoading, searchMessage } = this.state;
-
     const searchForm = <>
       <Formik
         initialValues={initialValues}
@@ -117,8 +104,8 @@ export default class UsersView extends Component<Props, State> {
         onSubmit={this.searchUser}
       >
         <Form>
-        <div className="form-group">
-            <Field name="searchvalue" type="text" className="form-control" onChange={(evt: any) => this.searchUser(evt)}/>
+          <div className="form-group">
+            <Field name="searchvalue" type="text" className="form-control" onChange={(evt: any) => this.searchUser(evt)} />
             <ErrorMessage
               name="searchvalue"
               component="div"
@@ -135,6 +122,17 @@ export default class UsersView extends Component<Props, State> {
         </Form>
       </Formik>
     </>
+    let view = null;
+    let email = this.state.user?.email;
+    var filtered = [...this.state.users].filter(function (el) { return el.email != email; });
+
+    if (filtered.length > 0) {
+      view = <UsersList listItems={filtered} />;
+    } else {
+      view = <EmptyUsersView />;
+    }
+
+
 
     return (
 

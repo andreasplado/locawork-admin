@@ -140,7 +140,7 @@ class App extends Component<Props, State> {
             <Route path="/home" element={<ViewHome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/jobs" element={<JobsView />} />
+            <Route path="/jobs" element={<JobsView userId={0}/>} />
             <Route path="/users" element={<UsersView />} />
             <Route path="/job-applications" element={<ViewJobApplications />} />
             <Route path='/user/:id' element={<BoardUserDetails />} />

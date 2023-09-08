@@ -7,7 +7,7 @@ import JobEntity from "../../types/jobEntity.type";
 
 
 type Props = {
-    listItems : JobEntity[] | null;
+    listItems : JobEntity[] | [];
 };
 
 export default class JobList extends Component<Props> {
@@ -15,11 +15,11 @@ export default class JobList extends Component<Props> {
     super(props);
 
     this.state = {
-      content: null
+      listItems: null
     };
   }
   render(){
-    const listItems = this.props.listItems?.map((d) =>
+    const listItems = Array.from(this.props.listItems).map((d) =>
     <>
     <td key={d.id}>{d.title}</td>
     <td>{d.description}</td>

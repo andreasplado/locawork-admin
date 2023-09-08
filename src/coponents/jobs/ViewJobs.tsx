@@ -5,6 +5,7 @@ import JobsService from "../../services/JobsService";
 import JobEntity from "../../types/jobEntity.type";
 import JobList from "./JobsList";
 import EmptyPostedJobsView from "./EmptyPostedJobsView";
+import { stat } from "fs";
 
 
 type Props = {
@@ -13,29 +14,32 @@ type Props = {
 };
 
 type State = {
-  content: JobEntity[] | [];
+  jobEntity: JobEntity[] | [];
 }
 
-export default class JobsView extends Component<Props, State> {
+export default class JobsView extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      content: []
+      jobEntity: []
     };
   }
 
   componentDidMount() {
-    if (this.props.userId != null && this.props.userId > 0) {
+    this.setState({
+      jobEntity: []
+    });
+    if (this.props.userId != null && this.props.userId > 0 && this.state.jobEntity == null) {
       JobsService.getUserJob(this.props.userId).then(
         response => {
           this.setState({
-            content: response.data
+            jobEntity: response.data
           });
         },
         error => {
           this.setState({
-            content:
+            jobEntity:
               (error.response &&
                 error.response.data &&
                 error.response.data.message) ||
@@ -47,12 +51,12 @@ export default class JobsView extends Component<Props, State> {
       JobsService.getJobsBoard().then(
         response => {
           this.setState({
-            content: response.data
+            jobEntity: response.data
           });
         },
         error => {
           this.setState({
-            content:
+            jobEntity:
               (error.response &&
                 error.response.data &&
                 error.response.data.message) ||
@@ -66,17 +70,19 @@ export default class JobsView extends Component<Props, State> {
 
   render() {
     let view = null;
+    
 
-    if (this.state.content.length > 0) {
-      view = <JobList listItems={this.state.content} />;
+    if (this.state.jobEntity.length > 0) {
+      view = <JobList key={this.props.userId} listItems={this.state.jobEntity} />;
     } else {
-      view = <EmptyPostedJobsView fullName={this.props.fullName}/>;
+      view = <EmptyPostedJobsView key={this.props.userId} fullName={this.props.fullName}/>;
     }
 
     return (
       <div className="container">
         {view}
       </div>
+      
     );
   }
 }

@@ -5,19 +5,15 @@ import JobApplicationEntity from "../../types/jobApplicationEntity.type";
 
 
 type Props = {
-    listItems : JobApplicationEntity[] | null;
+    listItems : JobApplicationEntity[] | [];
 };
 
 export default class JobApplicationsList extends Component<Props> {
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      content: []
-    };
   }
   render(){
-    const listItems = this.props.listItems?.map((d) =>
+    const listItems = Array.from(this.props.listItems).map((d) =>
     <>
     <td key={d.id}>{d.id}</td>
     <td>{d.job_id}</td>
@@ -26,7 +22,6 @@ export default class JobApplicationsList extends Component<Props> {
     <td>{d.createdAt}</td>
     <td>{d.updatedAt}</td>
     </>
-    
   );
     return<>
       <table>

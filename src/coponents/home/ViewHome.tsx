@@ -47,11 +47,18 @@ export default class ViewHome extends Component<Props, State> {
   }
 
   render() {
-    const listItems = this.state.comment.map((d) =>
-    <><p key={d.id}>{d.comment}</p>
-    <p>{d.userId}</p>
-    <p>Created at: {d.createdAt}</p></>
-    );
+    let listItems
+    if(Array.from(this.state.comment).length){
+      listItems = this.state.comment.map((d) =>
+      <><p key={d.id}>{d.comment}</p>
+      <p>{d.userId}</p>
+      <p>Created at: {d.createdAt}</p></>
+      );
+    }else{
+      <>
+      {listItems = "No comments found."}
+      </>
+    }
     return (
       <div className="container">
         <h1>User comments</h1>

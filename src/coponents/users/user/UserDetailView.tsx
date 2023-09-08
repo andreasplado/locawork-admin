@@ -10,15 +10,20 @@ import UserService from "../../../services/UserService";
 import * as Yup from "yup";
 import JobsView from "../../jobs/ViewJobs";
 import ViewJobApplications from "../../job-applications/ViewJobApplications";
+import ViewUserSettings from "../../user-settings/ViewUserSettings";
 
 type Props = {
-  content: UserEntity,
+  userEntity: UserEntity,
   userId: number
 };
 
 type State = {
   loading: boolean,
-  message: string
+  message: string,
+  showEditUser: boolean,
+  showEditUserSettings: boolean,
+  showUserPostedJobs: boolean,
+  showUserApplications: boolean
 };
 
 export default class UserDetailsView extends Component<Props, State> {
@@ -30,7 +35,11 @@ export default class UserDetailsView extends Component<Props, State> {
 
     this.state = {
       loading: false,
-      message: ""
+      message: "",
+      showEditUser: false,
+      showEditUserSettings: false,
+      showUserApplications: false,
+      showUserPostedJobs: false
     };
 
   }
@@ -43,10 +52,15 @@ export default class UserDetailsView extends Component<Props, State> {
 
     this.setState({
       loading: true,
-      message: ""
+      message: "",
+      showEditUser: true,
+      showEditUserSettings: false,
+      showUserPostedJobs: false,
+      showUserApplications: false
     });
 
-    const modifiedUserEntity = this.props.content
+
+    const modifiedUserEntity = this.props.userEntity
 
     modifiedUserEntity.email = email;
     modifiedUserEntity.fullname = fullname;
@@ -68,7 +82,8 @@ export default class UserDetailsView extends Component<Props, State> {
 
         this.setState({
           loading: false,
-          message: resMessage
+          message: resMessage,
+          showEditUser: false
         });
       }
     );
@@ -81,11 +96,32 @@ export default class UserDetailsView extends Component<Props, State> {
     });
   }
 
+  viewMyApplications() {
+    this.setState({
+      showUserApplications: !this.state.showUserApplications
+    });
+  }
+  viewAddedJobs() {
+    this.setState({
+      showUserPostedJobs: !this.state.showUserPostedJobs
+    });
+  }
+  viewUserSettings() {
+    this.setState({
+      showEditUserSettings: !this.state.showEditUserSettings
+    });
+  }
+  viewEditUser() {
+    this.setState({
+      showEditUser: !this.state.showEditUser
+    });
+  }
+
 
   render() {
 
 
-    const user = this.props.content;
+    const user = this.props.userEntity;
     const userId = this.props.userId;
 
     const { loading, message } = this.state;
@@ -97,7 +133,7 @@ export default class UserDetailsView extends Component<Props, State> {
     };
 
 
-    const form = <>
+    let form = <>
       <Formik
         initialValues={initialValues}
         validationSchema={this.validationSchema}
@@ -154,25 +190,60 @@ export default class UserDetailsView extends Component<Props, State> {
       </Formik>
     </>
 
-    const addedJobs = <>
-      <div>
-        {this.props.content.fullname} added jobs:
-        <JobsView userId={this.props.userId} fullName={this.props.content.fullname} />
+    let userPostedJobs = <>
+      <div id="added-jobs">
+        <JobsView userId={this.props.userId} fullName={this.props.userEntity.fullname} />
       </div>
     </>
 
-    const myApplications = <>
-      <div>
-        {this.props.content.fullname} job applications:
-        <ViewJobApplications userId={this.props.userId} fullName={this.props.content.fullname} />
+    let userApplications = <>
+      <div id="job-applications">
+        <ViewJobApplications userId={this.props.userId} fullName={this.props.userEntity.fullname} />
       </div>
     </>
+
+    let userSettings = <>
+      <div id="user-settings">
+        <ViewUserSettings userEntity={this.props.userEntity} />
+      </div>
+    </>
+
+    let viewEditUserText = "Hide edit user";
+    let viewEditUserSettingsText = "Hide user settings";
+    let viewUserJobsText = "Hide user jobs";
+    let viewUserApplicationsText = "Hide user applications";
+
+    if (!this.state.loading) {
+      if (this.state.showEditUser) {
+        form = <></>
+        viewEditUserText = "Show edit user";
+      }
+      if (!this.state.showEditUserSettings) {
+        userSettings = <></>
+        viewEditUserSettingsText = "Show user settings";
+      }
+      if (!this.state.showUserApplications) {
+        userApplications = <></>
+        viewUserApplicationsText = "Show user job applications"
+      }
+      if (!this.state.showUserPostedJobs) {
+        userPostedJobs = <></>
+        viewUserJobsText = "Show user posted jobs"
+      }
+    }
+
 
     return (
       <div className="container">
+        <button className="btn btn-primary" onClick={() => this.viewEditUser()}>{viewEditUserText}</button><br /><br />
         {form}
-        {addedJobs}
-        {myApplications}
+        <button className="btn btn-primary" onClick={() => this.viewUserSettings()}>{viewEditUserSettingsText}</button><br /><br />
+        {userSettings}
+        <button className="btn btn-primary" onClick={() => this.viewAddedJobs()}>{viewUserJobsText}</button><br /><br />
+        {userPostedJobs}
+        <button className="btn btn-primary" onClick={() => this.viewMyApplications()}>{viewUserApplicationsText}</button><br /><br />
+        {userApplications}
+
       </div >
     );
   }

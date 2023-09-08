@@ -7,7 +7,7 @@ export default interface UserEntity {
     firebaseToken? : string,
     role?: string,
     membership?: string,
-    addsRemoved?: string,
+    addsRemoved?: boolean,
     registredMembership?: string,
     createdAt?: string,
     updatedAt?: string,

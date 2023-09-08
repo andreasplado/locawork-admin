@@ -57,7 +57,7 @@ export default class BoardUserDetails extends Component<Props, State> {
     let myEmail = this.state.user?.email;
     let viewableUser = this.state.content;
     if (viewableUser != null) {
-      view = <UserDetailsView userId={viewableUser.id} content={viewableUser} />;
+      view = <UserDetailsView userId={viewableUser.id} userEntity={viewableUser} />;
     } else {
       view = <EmptyUsersView />;
     }
