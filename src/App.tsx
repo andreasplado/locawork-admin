@@ -70,9 +70,9 @@ class App extends Component<Props, State> {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
+          <Link to={"https://www.locawork.ee"} className="navbar-brand">
           <img src={logo} />&nbsp; &nbsp; &nbsp; 
-          <small>Locawork admin panel</small>
+          <small>Locawork admin</small>
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
