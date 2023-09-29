@@ -21,14 +21,16 @@ export default class JobList extends Component<Props> {
   render(){
     const listItems = Array.from(this.props.listItems).map((d) =>
     <>
-    <td key={d.id}>{d.title}</td>
-    <td>{d.description}</td>
-    <td>{d.user_id}</td>
-    <td>{d.applyer_id}</td>
-    <td>LONG: {d.longitude}, LAT: {d.latitude}</td>
-    <td>{d.is_done}</td>
-    <td>{d.createdAt}</td>
-    <td>{d.updatedAt}</td>
+        <tr>
+            <td key={d.id}>{d.title}</td>
+            <td>{d.description}</td>
+            <td>{d.user_id}</td>
+            <td>{d.applyer_id}</td>
+            <td>LONG: {d.longitude}, LAT: {d.latitude}</td>
+            <td>{d.is_done}</td>
+            <td>{d.createdAt}</td>
+            <td>{d.updatedAt}</td>
+        </tr>
     </>
     
   );
@@ -44,7 +46,7 @@ export default class JobList extends Component<Props> {
         <th>Created</th>
         <th>Updated</th>
         </tr>
-        <tr>{listItems}</tr>
+        {listItems}
         </table>
     </>
   }
