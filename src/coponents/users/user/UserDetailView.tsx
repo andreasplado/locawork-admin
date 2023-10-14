@@ -68,7 +68,7 @@ export default class UserDetailsView extends Component<Props, State> {
 
     console.log(JSON.stringify(modifiedUserEntity));
 
-    UserService.updateUserBoard(this.props.userId, modifiedUserEntity).then(
+    UserService.updateUserBoard(this.props.userEntity.id, modifiedUserEntity).then(
       () => {
         window.location.replace("users");
       },

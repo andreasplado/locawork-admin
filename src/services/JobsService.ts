@@ -5,7 +5,7 @@ import { AppConstants } from '../constants/AppConstants';
 class JobsService {
 
   getUserJob(userId: number) {
-      return axios.get(AppConstants.API_URL + '/getjobsbyaccount?userId=' + userId, { headers: authHeader() });
+      return axios.get(AppConstants.API_URL + '/jobs/getjobsbyaccount?userId=' + userId, { headers: authHeader() });
   }
 
 

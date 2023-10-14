@@ -9,8 +9,8 @@ import { stat } from "fs";
 
 
 type Props = {
-  userId?: number,
-  fullName?: string | null
+  userId?: number | null,
+  fullName?: string | null,
 };
 
 type State = {
@@ -30,7 +30,7 @@ export default class JobsView extends React.PureComponent<Props, State> {
     this.setState({
       jobEntity: []
     });
-    if (this.props.userId != null && this.props.userId > 0 && this.state.jobEntity == null) {
+    if (this.props.userId != null && this.props.userId > 0 && this.state.jobEntity != null) {
       JobsService.getUserJob(this.props.userId).then(
         response => {
           this.setState({
